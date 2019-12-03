@@ -2,7 +2,7 @@
 exports.calculateFuelPerModule = mass => Math.floor(mass / 3) - 2
 
 const calculateExtraFuel = mass => {
-  fuel = this.calculateFuelPerModule(mass)
+  const fuel = this.calculateFuelPerModule(mass)
   if (fuel <= 0) {
     return 0
   } else {
