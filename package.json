@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "standard --env jest",
     "lint:fix": "standard --env jest --fix"
   },
