@@ -2,7 +2,7 @@ exports.moveRight = (grid, x, y, steps) => {
   Array(steps).fill(0).forEach((_, i) => {
     const indexOfStep = i + 1
     if (indexOfStep !== 0) {
-      grid[y][x+indexOfStep] = 1
+      grid[y][x + indexOfStep] = 1
     }
   })
 }
@@ -14,7 +14,7 @@ exports.moveLeft = (grid, x, y, steps) => {
     const indexOfStep = -1 - i
 
     if (cellAlreadyExistsLeft(x, indexOfStep)) {
-      grid[y][x+indexOfStep] = 1
+      grid[y][x + indexOfStep] = 1
     } else {
       grid[y].unshift(1)
       grid.forEach((_, j) => {
@@ -36,7 +36,7 @@ exports.moveUp = (grid, x, y, steps) => {
     const indexOfStep = y - i
 
     if (cellAlreadyExistsUp(y, indexOfStep)) {
-      grid[y+indexOfStep] = 1
+      grid[y + indexOfStep] = 1
     } else {
       grid.unshift([1])
     }

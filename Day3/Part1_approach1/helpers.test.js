@@ -34,9 +34,9 @@ describe('moveLeft', () => {
   })
 
   test('move 1 when two rows present', () => {
-    const grid = [[0],[2]]
+    const grid = [[0], [2]]
     moveLeft(grid, 0, 1, 1)
-    expect(grid).toEqual([[0,0],[1, 2]])
+    expect(grid).toEqual([[0, 0], [1, 2]])
   })
 })
 
@@ -65,7 +65,7 @@ describe('moveUp', () => {
   })
 
   xtest('move 1 when x not 0', () => {
-    const grid = [[0],[2]]
+    const grid = [[0], [2]]
     moveUp(grid, 0, 1, 1)
     expect(grid).toHaveLength(2)
     expect(grid[0]).toEqual([1])
