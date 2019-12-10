@@ -2,7 +2,7 @@ const { countValidPasswordsInRange, isValid, isSixDigitNumber, containsTwoAdjace
 
 describe('countValidPasswordsInRange', () => {
   test('111111 and 111116 returns 6', () => {
-    expect(countValidPasswordsInRange('111111', '111116')).toEqual(6)
+    expect(countValidPasswordsInRange('111111', '111116', isValid)).toEqual(6)
   })
 })
 

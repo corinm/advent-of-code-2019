@@ -1,13 +1,11 @@
-exports.countValidPasswordsInRange = (str1, str2) => {
+exports.countValidPasswordsInRange = (str1, str2, check) => {
   const min = parseInt(str1)
   const max = parseInt(str2)
 
   let validCount = 0
 
-  console.log(min, max)
-
   for (let i = min; i <= max; i++) {
-    if (this.isValid(i.toString())) {
+    if (check(i.toString())) {
       validCount += 1
     }
   }
