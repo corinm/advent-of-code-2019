@@ -2,9 +2,8 @@ const { generateWire, findWhereWiresCross, serialise } = require('../common')
 
 const remove00 = item => item !== '0,0'
 
-exports.findDistanceToCross = (cross, wire) => {
-  const segments = generateWire(wire).map(serialise)
-  return segments.indexOf(cross)
+exports.findDistanceToCross = (cross, wireAsSerialisedSegments) => {
+  return wireAsSerialisedSegments.indexOf(cross)
 }
 
 const sumDistances = (cross, wire1, wire2) => this.findDistanceToCross(cross, wire1) + this.findDistanceToCross(cross, wire2)
@@ -20,9 +19,11 @@ const findSmallest = (acc, distance) => {
 }
 
 exports.solve = (wire1, wire2) => {
-  const crosses = findWhereWiresCross(wire1, wire2).map(serialise).filter(remove00)
+  const segments1 = generateWire(wire1).map(serialise)
+  const segments2 = generateWire(wire2).map(serialise)
+  const crosses = findWhereWiresCross(wire1, wire2).filter(remove00).map(serialise)
 
   return crosses
-    .map(cross => sumDistances(cross, wire1, wire2))
+    .map(cross => sumDistances(cross, segments1, segments2))
     .reduce(findSmallest)
 }

@@ -1,4 +1,5 @@
 const { solve, findDistanceToCross } = require('./helpers')
+const { generateWire, serialise } = require('../common')
 
 describe('solve', () => {
   it('should correctly answer example 1', () => {
@@ -23,13 +24,13 @@ describe('solve', () => {
 describe('findDistanceToCross', () => {
   it('should return 20 for example 1 wire 1', () => {
     const cross = '3,3'
-    const wire = 'R8,U5,L5,D3'
+    const wire = generateWire('R8,U5,L5,D3').map(serialise)
     expect(findDistanceToCross(cross, wire)).toEqual(20)
   })
 
   it('should return 20 for example 1 wire 2', () => {
     const cross = '3,3'
-    const wire = 'U7,R6,D4,L4'
+    const wire = generateWire('U7,R6,D4,L4').map(serialise)
     expect(findDistanceToCross(cross, wire)).toEqual(20)
   })
 })
