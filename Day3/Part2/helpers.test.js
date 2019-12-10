@@ -1,4 +1,4 @@
-const { solve } = require('./helpers')
+const { solve, findDistanceToCross } = require('./helpers')
 
 describe('solve', () => {
   it('should correctly answer example 1', () => {
@@ -17,5 +17,19 @@ describe('solve', () => {
     const wire1 = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51'
     const wire2 = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7'
     expect(solve(wire1, wire2)).toEqual(410)
+  })
+})
+
+describe('findDistanceToCross', () => {
+  it('should return 20 for example 1 wire 1', () => {
+    const cross = '3,3'
+    const wire = 'R8,U5,L5,D3'
+    expect(findDistanceToCross(cross, wire)).toEqual(20)
+  })
+
+  it('should return 20 for example 1 wire 2', () => {
+    const cross = '3,3'
+    const wire = 'U7,R6,D4,L4'
+    expect(findDistanceToCross(cross, wire)).toEqual(20)
   })
 })
