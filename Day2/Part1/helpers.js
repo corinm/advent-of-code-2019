@@ -29,7 +29,6 @@ exports.multiply = (opcode, index) => {
 exports.run = opcode => {
   let currentIndex = 0
   let isDone = false
-  const loops = 0
 
   while (!isDone) {
     switch (opcode[currentIndex]) {

@@ -46,7 +46,7 @@ exports.moveUp = (grid, x, y, steps) => {
 exports.createGrid = wire => {
   const grid = [[2]]
   wire.split(',').forEach(segment => {
-    move(grid, segment)
+    // move(grid, segment)
   })
   return grid
 }
