@@ -8,12 +8,12 @@ exports.runOpcode = opcode => {
     const operation = opcode[instructionPointer]
     switch (operation) {
       case 1:
-        add(opcode, instructionPointer)
+        opcode = add(opcode, instructionPointer)
         instructionPointer += 4
         break
 
       case 2:
-        multiply(opcode, instructionPointer)
+        opcode = multiply(opcode, instructionPointer)
         instructionPointer += 4
         break
 

@@ -9,21 +9,22 @@ const getParameters = (opcode, pointer) => ({
 })
 
 const setOutput = (opcode, pointer, output) => {
-  const outputAddres = opcode[pointer + 3]
-  opcode[outputAddres] = output
-  return opcode
+  const newOpcode = [...opcode]
+  const outputAddress = opcode[pointer + 3]
+  newOpcode[outputAddress] = output
+  return newOpcode
 }
 
 exports.add = (opcode, pointer) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
   const output = parameter1 + parameter2
-  setOutput(opcode, pointer, output)
-  return opcode
+  const newOpcode = setOutput(opcode, pointer, output)
+  return newOpcode
 }
 
 exports.multiply = (opcode, pointer) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
   const output = parameter1 * parameter2
-  setOutput(opcode, pointer, output)
-  return opcode
+  const newOpcode = setOutput(opcode, pointer, output)
+  return newOpcode
 }
