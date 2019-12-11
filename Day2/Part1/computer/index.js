@@ -1,6 +1,6 @@
 const { add, multiply } = require('./operations')
 
-exports.run = opcode => {
+exports.runOpcode = opcode => {
   let currentIndex = 0
   let isDone = false
 
