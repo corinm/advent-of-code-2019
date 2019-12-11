@@ -1,20 +1,20 @@
 const { add, multiply } = require('./operations')
 
 exports.runOpcode = opcode => {
-  let currentIndex = 0
+  let instructionPointer = 0
   let isDone = false
 
   while (!isDone) {
-    const operation = opcode[currentIndex]
+    const operation = opcode[instructionPointer]
     switch (operation) {
       case 1:
-        add(opcode, currentIndex)
-        currentIndex += 4
+        add(opcode, instructionPointer)
+        instructionPointer += 4
         break
 
       case 2:
-        multiply(opcode, currentIndex)
-        currentIndex += 4
+        multiply(opcode, instructionPointer)
+        instructionPointer += 4
         break
 
       case 99:

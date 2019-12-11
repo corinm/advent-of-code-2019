@@ -1,30 +1,29 @@
-const getInput = (opcode, index, offset) => {
-  const inputIndex = opcode[index + offset]
-  const input = opcode[inputIndex]
-  return input
+const getParameter = (opcode, pointer, offset) => {
+  const address = opcode[pointer + offset]
+  return opcode[address]
 }
 
-const getInputs = (opcode, index) => ({
-  input1: getInput(opcode, index, 1),
-  input2: getInput(opcode, index, 2)
+const getParameters = (opcode, pointer) => ({
+  parameter1: getParameter(opcode, pointer, 1),
+  parameter2: getParameter(opcode, pointer, 2)
 })
 
-const setOutput = (opcode, index, output) => {
-  const outputIndex = opcode[index + 3]
-  opcode[outputIndex] = output
+const setOutput = (opcode, pointer, output) => {
+  const outputAddres = opcode[pointer + 3]
+  opcode[outputAddres] = output
   return opcode
 }
 
-exports.add = (opcode, index) => {
-  const { input1, input2 } = getInputs(opcode, index)
-  const output = input1 + input2
-  setOutput(opcode, index, output)
+exports.add = (opcode, pointer) => {
+  const { parameter1, parameter2 } = getParameters(opcode, pointer)
+  const output = parameter1 + parameter2
+  setOutput(opcode, pointer, output)
   return opcode
 }
 
-exports.multiply = (opcode, index) => {
-  const { input1, input2 } = getInputs(opcode, index)
-  const output = input1 * input2
-  setOutput(opcode, index, output)
+exports.multiply = (opcode, pointer) => {
+  const { parameter1, parameter2 } = getParameters(opcode, pointer)
+  const output = parameter1 * parameter2
+  setOutput(opcode, pointer, output)
   return opcode
 }
