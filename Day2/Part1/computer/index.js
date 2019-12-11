@@ -1,5 +1,12 @@
 const { add, multiply } = require('./operations')
 
+exports.initialiseMemory = (opcode, noun, verb) => {
+  const newOpcode = [...opcode]
+  newOpcode[1] = noun
+  newOpcode[2] = verb
+  return newOpcode
+}
+
 exports.runOpcode = opcode => {
   let instructionPointer = 0
   let isDone = false

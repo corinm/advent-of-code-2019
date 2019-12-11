@@ -11,7 +11,7 @@ const initialiseMemory = opcode => {
   return opcode
 }
 
-const stateBeforeCrash = initialiseMemory(gravityAssistProgram)
+const stateBeforeCrash = initialiseMemory(gravityAssistProgram, 12, 2)
 const outcome = runOpcode(stateBeforeCrash)
 
 console.log(outcome[0])
