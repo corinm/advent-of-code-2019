@@ -4,6 +4,11 @@ const getInput = (opcode, index, offset) => {
   return input
 }
 
+const getInputs = (opcode, index) => ({
+  input1: getInput(opcode, index, 1),
+  input2: getInput(opcode, index, 2)
+})
+
 const setOutput = (opcode, index, output) => {
   const outputIndex = opcode[index + 3]
   opcode[outputIndex] = output
@@ -11,16 +16,14 @@ const setOutput = (opcode, index, output) => {
 }
 
 exports.add = (opcode, index) => {
-  const input1 = getInput(opcode, index, 1)
-  const input2 = getInput(opcode, index, 2)
+  const { input1, input2 } = getInputs(opcode, index)
   const output = input1 + input2
   setOutput(opcode, index, output)
   return opcode
 }
 
 exports.multiply = (opcode, index) => {
-  const input1 = getInput(opcode, index, 1)
-  const input2 = getInput(opcode, index, 2)
+  const { input1, input2 } = getInputs(opcode, index)
   const output = input1 * input2
   setOutput(opcode, index, output)
   return opcode
@@ -31,7 +34,8 @@ exports.run = opcode => {
   let isDone = false
 
   while (!isDone) {
-    switch (opcode[currentIndex]) {
+    const operation = opcode[currentIndex]
+    switch (operation) {
       case 1:
         this.add(opcode, currentIndex)
         currentIndex += 4
