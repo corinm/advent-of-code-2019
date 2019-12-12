@@ -63,3 +63,18 @@ exports.jumpIfFalse = (opcode, pointer) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
   return parameter1 !== 0 ? pointer : parameter2
 }
+
+exports.lessThan = (opcode, pointer) => {
+  const { parameter1, parameter2 } = getParameters(opcode, pointer)
+  const output = parameter1 < parameter2 ? 1 : 0
+  const newOpcode = setOutput(opcode, pointer, output)
+  return newOpcode
+}
+
+exports.equals = (opcode, pointer) => {
+  const { parameter1, parameter2 } = getParameters(opcode, pointer)
+  console.log(parameter1, parameter2)
+  const output = parameter1 === parameter2 ? 1 : 0
+  const newOpcode = setOutput(opcode, pointer, output)
+  return newOpcode
+}

@@ -1,4 +1,4 @@
-const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse, lessThan, equals } = require('./operations')
 
 describe('add', () => {
   describe('position mode', () => {
@@ -133,25 +133,87 @@ describe('jumpIfTrue', () => {
 describe('jumpIfFalse', () => {
   describe('position mode', () => {
     test('should return pointer if value at first parameter is not zero', () => {
-      const opcode = [5, 3, 2, 1]
+      const opcode = [6, 3, 2, 1]
       expect(jumpIfFalse(opcode, 0)).toEqual(0)
     })
 
     test('should return second parameter if value at first parameter is zero', () => {
-      const opcode = [5, 3, 2, 0]
+      const opcode = [6, 3, 2, 0]
       expect(jumpIfFalse(opcode, 0)).toEqual(2)
     })
   })
 
   describe('immediate mode', () => {
     test('should return pointer if first parameter is not zero', () => {
-      const opcode = [105, 1, 2]
+      const opcode = [106, 1, 2]
       expect(jumpIfFalse(opcode, 0)).toEqual(0)
     })
 
     test('should return second parameter if first parameter is zero', () => {
-      const opcode = [105, 0, 2]
+      const opcode = [106, 0, 2]
       expect(jumpIfFalse(opcode, 0)).toEqual(2)
+    })
+  })
+})
+
+describe('lessThan', () => {
+  describe('position mode', () => {
+    test('if p1 < p2 sets 1 in position at p3', () => {
+      const opcode = [7, 4, 5, 3, 6, 9]
+      expect(lessThan(opcode, 0)).toEqual([7, 4, 5, 1, 6, 9])
+    })
+
+    test('if p1 === p2 sets 0 in position at p3', () => {
+      const opcode = [7, 4, 5, 3, 6, 6]
+      expect(lessThan(opcode, 0)).toEqual([7, 4, 5, 0, 6, 6])
+    })
+
+    test('if p1 > p2 sets 0 in position at p3', () => {
+      const opcode = [7, 4, 5, 3, 9, 6]
+      expect(lessThan(opcode, 0)).toEqual([7, 4, 5, 0, 9, 6])
+    })
+  })
+
+  describe('immediate mode', () => {
+    test('if p1 < p2 sets 1 in position at p3', () => {
+      const opcode = [1107, 6, 9, 4]
+      expect(lessThan(opcode, 0)).toEqual([1107, 6, 9, 4, 1])
+    })
+
+    test('if p1 === p2 sets 0 in position at p3', () => {
+      const opcode = [1107, 6, 6, 4]
+      expect(lessThan(opcode, 0)).toEqual([1107, 6, 6, 4, 0])
+    })
+
+    test('if p1 > p2 sets 0 in position at p3', () => {
+      const opcode = [1107, 9, 6, 4]
+      expect(lessThan(opcode, 0)).toEqual([1107, 9, 6, 4, 0])
+    })
+  })
+})
+
+describe('equals', () => {
+  describe('position mode', () => {
+    test('if p1 === p2 sets 1 in position at p3', () => {
+      const opcode = [8, 4, 5, 3, 6, 6]
+      expect(equals(opcode, 0)).toEqual([8, 4, 5, 1, 6, 6])
+    })
+
+    test('if p1 !== p2 sets 0 in position at p3', () => {
+      const opcode = [8, 4, 5, 3, 6, 21]
+      expect(equals(opcode, 0)).toEqual([8, 4, 5, 0, 6, 21])
+    })
+  })
+
+  describe('immediate mode', () => {
+    test('if p1 === p2 sets 1 in position at p3', () => {
+      const opcode = [1108, 6, 6, 3]
+      expect(equals(opcode, 0)).toEqual([1108, 6, 6, 1])
+    })
+
+    test('if p1 !== p2 sets 0 in position at p3', () => {
+      const opcode = [1108, 6, 21, 3]
+      expect(equals(opcode, 0)).toEqual([1108, 6, 21, 0])
     })
   })
 })

@@ -1,4 +1,4 @@
-const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse, lessThan, equals } = require('./operations')
 const { getOperation } = require('./helpers')
 
 exports.initialiseMemory = (opcode, noun, verb) => {
@@ -14,7 +14,7 @@ exports.runOpcode = async (opcode, inputs = []) => {
   let inputIndex = 0
   const outputs = []
 
-  console.log('\nRunning...\n')
+  // console.log('\nRunning...\n')
 
   while (!isDone) {
     const instruction = opcode[pointer]
@@ -54,9 +54,19 @@ exports.runOpcode = async (opcode, inputs = []) => {
         pointer = jumpIfFalse(opcode, pointer)
         break
 
+      case 7:
+        opcode = lessThan(opcode, pointer)
+        pointer += 2
+        break
+
+      case 8:
+        opcode = equals(opcode, pointer)
+        pointer += 2
+        break
+
       case 99:
         isDone = true
-        console.log('\nFinished...\n')
+        // console.log('\nFinished...\n')
         return {
           finalOpcode: opcode,
           outputs: [...outputs, 'EXIT']

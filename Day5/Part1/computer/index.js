@@ -14,16 +14,11 @@ exports.runOpcode = async (opcode, inputs = []) => {
   let inputIndex = 0
   const outputs = []
 
-  console.log('\nRunning...\n')
+  // console.log('\nRunning...\n')
 
   while (!isDone) {
     const instruction = opcode[pointer]
-
-    console.log('Instruction: ', instruction)
-
     const operation = getOperation(instruction)
-
-    console.log('Operation: ', operation)
 
     switch (operation) {
       case 1:
@@ -53,7 +48,7 @@ exports.runOpcode = async (opcode, inputs = []) => {
 
       case 99:
         isDone = true
-        console.log('\nFinished...\n')
+        // console.log('\nFinished...\n')
         return {
           finalOpcode: opcode,
           outputs: [...outputs, 'EXIT']

@@ -48,4 +48,10 @@ describe('runOpcode', () => {
     const { finalOpcode } = await runOpcode(opcode)
     expect(finalOpcode).toEqual([30, 1, 1, 4, 2, 5, 6, 0, 99])
   })
+
+  xtest('5.2 example 1', async () => {
+    const opcode = [3,9,8,9,10,9,4,9,99,-1,8]
+    const { finalOpcode } = await runOpcode(opcode)
+    expect(finalOpcode).toEqual([3,9,8,9,10,9,4,9,99,-1,8])
+  })
 })
