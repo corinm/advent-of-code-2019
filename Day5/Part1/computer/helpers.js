@@ -5,13 +5,20 @@ exports.padZeroes = num => {
   return `${padded}${str}`
 }
 
-exports.parseInstruction = (instruction) => {
+exports.getOperation = instruction => {
   const instructionPadded = this.padZeroes(instruction)
+  return parseInt(instructionPadded.slice(3, 5))
+}
 
-  return {
-    operation: parseInt(instructionPadded.slice(3, 5)),
-    modeParam1: parseInt(instructionPadded.slice(2, 3)),
-    modeParam2: parseInt(instructionPadded.slice(1, 2)),
-    modeParam3: parseInt(instructionPadded.slice(0, 1))
+exports.getMode = (instruction, parameterNumber) => {
+  const instructionPadded = this.padZeroes(instruction)
+  if (parameterNumber === 1) {
+    return parseInt(instructionPadded.slice(2, 3))
+  } else if (parameterNumber === 2) {
+    return parseInt(instructionPadded.slice(1, 2))
+  } else if (parameterNumber === 3) {
+    return parseInt(instructionPadded.slice(0, 1))
+  } else {
+    throw new Error(`Unexpected parameter number: ${parameterNumber}`)
   }
 }

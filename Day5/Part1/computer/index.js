@@ -1,5 +1,5 @@
 const { add, multiply } = require('./operations')
-const { parseInstruction } = require('./helpers')
+const { getOperation } = require('./helpers')
 
 exports.initialiseMemory = (opcode, noun, verb) => {
   const newOpcode = [...opcode]
@@ -14,16 +14,16 @@ exports.runOpcode = opcode => {
 
   while (!isDone) {
     const instruction = opcode[pointer]
-    const { operation, modeParam1, modeParam2, modeParam3 } = parseInstruction(instruction)
+    const operation = getOperation(instruction)
 
     switch (operation) {
       case 1:
-        opcode = add({ opcode, pointer, modeParam1, modeParam2 })
+        opcode = add(opcode, pointer)
         pointer += 4
         break
 
       case 2:
-        opcode = multiply({ opcode, pointer, modeParam1, modeParam2 })
+        opcode = multiply(opcode, pointer)
         pointer += 4
         break
 
