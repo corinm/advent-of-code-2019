@@ -12,10 +12,18 @@ exports.runOpcode = async (opcode, inputs = []) => {
   let pointer = 0
   let isDone = false
   let inputIndex = 0
+  const outputs = []
+
+  console.log('\nRunning...\n')
 
   while (!isDone) {
     const instruction = opcode[pointer]
+
+    console.log('Instruction: ', instruction)
+
     const operation = getOperation(instruction)
+
+    console.log('Operation: ', operation)
 
     switch (operation) {
       case 1:
@@ -38,15 +46,18 @@ exports.runOpcode = async (opcode, inputs = []) => {
 
       case 4: {
         const output = outputParameter(opcode, pointer)
-        console.log(`OUTPUT: ${output}`)
+        outputs.push(output)
         pointer += 2
         break
       }
 
       case 99:
         isDone = true
-        console.log('EXIT')
-        return opcode
+        console.log('\nFinished...\n')
+        return {
+          finalOpcode: opcode,
+          outputs: [...outputs, 'EXIT']
+        }
 
       default:
         isDone = true

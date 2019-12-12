@@ -86,14 +86,14 @@ describe('multiply', () => {
   describe('outputParameter', () => {
     describe('position mode', () => {
       test('returns the value at position 2', () => {
-        const opcode = [4,2,1]
+        const opcode = [4, 2, 1]
         expect(outputParameter(opcode, 0)).toEqual(1)
       })
     })
 
     describe('immediate mode', () => {
       test('returns the value at parameter 1', () => {
-        const opcode = [4,1,2]
+        const opcode = [4, 1, 2]
         expect(outputParameter(opcode, 0)).toEqual(1)
       })
     })

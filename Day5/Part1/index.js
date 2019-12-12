@@ -1,9 +1,13 @@
 const { runOpcode } = require('./computer')
+const opcode = require('./diagnosticProgram')
 
 const main = async () => {
-  const opcode = [4, 1, 99]
-  const result = await runOpcode(opcode)
-  console.log(result)
+  try {
+    const { outputs } = await runOpcode(opcode, [1])
+    console.log(outputs)
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 main()
