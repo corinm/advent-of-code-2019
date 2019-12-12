@@ -10,8 +10,8 @@ exports.parseInstruction = (instruction) => {
 
   return {
     operation: parseInt(instructionPadded.slice(3, 5)),
-    modeP1: parseInt(instructionPadded.slice(2, 3)),
-    modeP2: parseInt(instructionPadded.slice(1, 2)),
-    modeP3: parseInt(instructionPadded.slice(0, 1))
+    modeParam1: parseInt(instructionPadded.slice(2, 3)),
+    modeParam2: parseInt(instructionPadded.slice(1, 2)),
+    modeParam3: parseInt(instructionPadded.slice(0, 1))
   }
 }

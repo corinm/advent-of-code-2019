@@ -10,7 +10,7 @@ describe('initialiseMemory', () => {
 })
 
 describe('runOpcode', () => {
-  test('it runs the opcode as described in example', () => {
+  test.only('it runs the opcode as described in example', () => {
     const opcode = [
       1, 9, 10, 3,
       2, 3, 11, 0,

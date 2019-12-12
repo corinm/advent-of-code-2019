@@ -14,9 +14,18 @@ describe('parseInstruction', () => {
   test('correctly parses 1011', () => {
     expect(parseInstruction(1011)).toEqual({
       operation: 11,
-      modeP1: 0,
-      modeP2: 1,
-      modeP3: 0
+      modeParam1: 0,
+      modeParam2: 1,
+      modeParam3: 0
+    })
+  })
+
+  test('correctly parses 1', () => {
+    expect(parseInstruction(1)).toEqual({
+      operation: 1,
+      modeParam1: 0,
+      modeParam2: 0,
+      modeParam3: 0
     })
   })
 })
