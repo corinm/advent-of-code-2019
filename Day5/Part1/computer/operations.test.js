@@ -1,4 +1,4 @@
-const { add, multiply } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter } = require('./operations')
 
 describe('add', () => {
   describe('position mode', () => {
@@ -70,6 +70,21 @@ describe('multiply', () => {
     test('correctly multiplies (2 in pos 4 * 4 in pos 3 = 16 in pos 4)', () => {
       const opcode = [102, 4, 3, 4, 2]
       expect(multiply(opcode, 0)).toEqual([102, 4, 3, 4, 16])
+    })
+  })
+
+  describe('saveToPosition', () => {
+    test('saves a value to position given by parameter 1', () => {
+      const opcode = [3, 2]
+      const input = 4
+      expect(saveToPosition(opcode, 0, input)).toEqual([3, 2, 4])
+    })
+  })
+
+  describe('outputParameter', () => {
+    test('returns the value at parameter 1', () => {
+      const opcode = [4,2]
+      expect(outputParameter(opcode, 0)).toEqual(2)
     })
   })
 })

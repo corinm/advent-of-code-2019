@@ -42,3 +42,14 @@ exports.multiply = (opcode, pointer) => {
   const newOpcode = setOutput(opcode, pointer, output)
   return newOpcode
 }
+
+exports.saveToPosition = (opcode, pointer, input) => {
+  const newOpcode = [...opcode]
+  const outputAddress = opcode[pointer + 1]
+  newOpcode[outputAddress] = input
+  return newOpcode
+}
+
+exports.outputParameter = (opcode, pointer) => {
+  return opcode[pointer + 1]
+}
