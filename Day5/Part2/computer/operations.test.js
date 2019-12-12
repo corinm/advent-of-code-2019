@@ -1,4 +1,4 @@
-const { add, multiply, saveToPosition, outputParameter } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter, jumpIfTrue } = require('./operations')
 
 describe('add', () => {
   describe('position mode', () => {
@@ -72,30 +72,60 @@ describe('multiply', () => {
       expect(multiply(opcode, 0)).toEqual([102, 4, 3, 4, 16])
     })
   })
+})
 
-  describe('saveToPosition', () => {
-    describe('position mode', () => {
-      test('saves a value to position given by parameter 1', () => {
-        const opcode = [3, 2]
-        const input = 4
-        expect(saveToPosition(opcode, 0, input)).toEqual([3, 2, 4])
-      })
+describe('saveToPosition', () => {
+  describe('position mode', () => {
+    test('saves a value to position given by parameter 1', () => {
+      const opcode = [3, 2]
+      const input = 4
+      expect(saveToPosition(opcode, 0, input)).toEqual([3, 2, 4])
+    })
+  })
+})
+
+describe('outputParameter', () => {
+  describe('position mode', () => {
+    test('returns the value at position 2', () => {
+      const opcode = [4, 2, 1]
+      expect(outputParameter(opcode, 0)).toEqual(1)
     })
   })
 
-  describe('outputParameter', () => {
-    describe('position mode', () => {
-      test('returns the value at position 2', () => {
-        const opcode = [4, 2, 1]
-        expect(outputParameter(opcode, 0)).toEqual(1)
-      })
+  describe('immediate mode', () => {
+    test('returns the value at parameter 1', () => {
+      const opcode = [4, 1, 2]
+      expect(outputParameter(opcode, 0)).toEqual(1)
+    })
+  })
+})
+
+// Opcode 5 is jump-if-true: if the first parameter is non-zero,
+// it sets the instruction pointer to the value from the second
+// parameter. Otherwise, it does nothing
+
+describe('jumpIfTrue', () => {
+  describe('position mode', () => {
+    test('should return pointer if value at first parameter is zero', () => {
+      const opcode = [5, 3, 2, 0]
+      expect(jumpIfTrue(opcode, 0)).toEqual(0)
     })
 
-    describe('immediate mode', () => {
-      test('returns the value at parameter 1', () => {
-        const opcode = [4, 1, 2]
-        expect(outputParameter(opcode, 0)).toEqual(1)
-      })
+    test('should return second parameter if value at first parameter is not zero', () => {
+      const opcode = [5, 4, 2, 1]
+      expect(jumpIfTrue(opcode, 0)).toEqual(2)
+    })
+  })
+
+  describe('immediate mode', () => {
+    test('should return pointer if first parameter is zero', () => {
+      const opcode = [105, 0, 2]
+      expect(jumpIfTrue(opcode, 0)).toEqual(0)
+    })
+
+    test('should return second parameter if first parameter is not zero', () => {
+      const opcode = [105, 1, 2]
+      expect(jumpIfTrue(opcode, 0)).toEqual(2)
     })
   })
 })
