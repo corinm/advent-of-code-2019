@@ -1,4 +1,4 @@
-const { add, multiply, saveToPosition, outputParameter, jumpIfTrue } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse } = require('./operations')
 const { getOperation } = require('./helpers')
 
 exports.initialiseMemory = (opcode, noun, verb) => {
@@ -48,6 +48,10 @@ exports.runOpcode = async (opcode, inputs = []) => {
 
       case 5:
         pointer = jumpIfTrue(opcode, pointer)
+        break
+
+      case 6:
+        pointer = jumpIfFalse(opcode, pointer)
         break
 
       case 99:

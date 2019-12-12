@@ -56,6 +56,10 @@ exports.outputParameter = (opcode, pointer) => {
 
 exports.jumpIfTrue = (opcode, pointer) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
-  console.log(parameter1, parameter2)
   return parameter1 === 0 ? pointer : parameter2
+}
+
+exports.jumpIfFalse = (opcode, pointer) => {
+  const { parameter1, parameter2 } = getParameters(opcode, pointer)
+  return parameter1 !== 0 ? pointer : parameter2
 }

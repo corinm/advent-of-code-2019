@@ -1,4 +1,4 @@
-const { add, multiply, saveToPosition, outputParameter, jumpIfTrue } = require('./operations')
+const { add, multiply, saveToPosition, outputParameter, jumpIfTrue, jumpIfFalse } = require('./operations')
 
 describe('add', () => {
   describe('position mode', () => {
@@ -112,7 +112,7 @@ describe('jumpIfTrue', () => {
     })
 
     test('should return second parameter if value at first parameter is not zero', () => {
-      const opcode = [5, 4, 2, 1]
+      const opcode = [5, 3, 2, 1]
       expect(jumpIfTrue(opcode, 0)).toEqual(2)
     })
   })
@@ -126,6 +126,32 @@ describe('jumpIfTrue', () => {
     test('should return second parameter if first parameter is not zero', () => {
       const opcode = [105, 1, 2]
       expect(jumpIfTrue(opcode, 0)).toEqual(2)
+    })
+  })
+})
+
+describe('jumpIfFalse', () => {
+  describe('position mode', () => {
+    test('should return pointer if value at first parameter is not zero', () => {
+      const opcode = [5, 3, 2, 1]
+      expect(jumpIfFalse(opcode, 0)).toEqual(0)
+    })
+
+    test('should return second parameter if value at first parameter is zero', () => {
+      const opcode = [5, 3, 2, 0]
+      expect(jumpIfFalse(opcode, 0)).toEqual(2)
+    })
+  })
+
+  describe('immediate mode', () => {
+    test('should return pointer if first parameter is not zero', () => {
+      const opcode = [105, 1, 2]
+      expect(jumpIfFalse(opcode, 0)).toEqual(0)
+    })
+
+    test('should return second parameter if first parameter is zero', () => {
+      const opcode = [105, 0, 2]
+      expect(jumpIfFalse(opcode, 0)).toEqual(2)
     })
   })
 })
