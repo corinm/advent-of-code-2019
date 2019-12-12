@@ -15,14 +15,14 @@ const setOutput = (opcode, pointer, output) => {
   return newOpcode
 }
 
-exports.add = (opcode, pointer) => {
+exports.add = ({ opcode, pointer }) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
   const output = parameter1 + parameter2
   const newOpcode = setOutput(opcode, pointer, output)
   return newOpcode
 }
 
-exports.multiply = (opcode, pointer) => {
+exports.multiply = ({ opcode, pointer }) => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer)
   const output = parameter1 * parameter2
   const newOpcode = setOutput(opcode, pointer, output)

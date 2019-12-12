@@ -7,7 +7,7 @@ describe('add', () => {
       2, 3, 11, 0,
       99,
       30, 40, 50]
-    expect(add(opcode, 0)).toEqual([
+    expect(add({ opcode, pointer: 0 })).toEqual([
       1, 9, 10, 70,
       2, 3, 11, 0,
       99,
@@ -21,7 +21,7 @@ describe('add', () => {
       2, 3, 11, 0,
       99,
       30, 40, 50]
-    add(opcode, 0)
+    add({ opcode, pointer: 0 })
     expect(opcode).toEqual([
       1, 9, 10, 3,
       2, 3, 11, 0,
@@ -37,7 +37,7 @@ describe('multiply', () => {
       2, 3, 11, 0,
       99,
       30, 40, 50]
-    expect(multiply(opcode, 4)).toEqual([
+    expect(multiply({ opcode, pointer: 4 })).toEqual([
       3500, 9, 10, 70,
       2, 3, 11, 0,
       99,

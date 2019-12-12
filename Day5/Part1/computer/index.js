@@ -9,22 +9,22 @@ exports.initialiseMemory = (opcode, noun, verb) => {
 }
 
 exports.runOpcode = opcode => {
-  let instructionPointer = 0
+  let pointer = 0
   let isDone = false
 
   while (!isDone) {
-    const instruction = opcode[instructionPointer]
-    const { operation, modeP1, modeP2, modeP3 } = parseInstruction(instruction)
+    const instruction = opcode[pointer]
+    const { operation, modeParam1, modeParam2, modeParam3 } = parseInstruction(instruction)
 
     switch (operation) {
       case 1:
-        opcode = add(opcode, instructionPointer)
-        instructionPointer += 4
+        opcode = add({ opcode, pointer, modeParam1, modeParam2 })
+        pointer += 4
         break
 
       case 2:
-        opcode = multiply(opcode, instructionPointer)
-        instructionPointer += 4
+        opcode = multiply({ opcode, pointer, modeParam1, modeParam2 })
+        pointer += 4
         break
 
       case 99:
