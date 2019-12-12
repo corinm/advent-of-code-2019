@@ -39,7 +39,7 @@ exports.runOpcode = async (opcode, inputs = []) => {
       case 4: {
         const output = outputParameter(opcode, pointer)
         console.log(`OUTPUT: ${output}`)
-        pointer += 1
+        pointer += 2
         break
       }
 

@@ -74,17 +74,28 @@ describe('multiply', () => {
   })
 
   describe('saveToPosition', () => {
-    test('saves a value to position given by parameter 1', () => {
-      const opcode = [3, 2]
-      const input = 4
-      expect(saveToPosition(opcode, 0, input)).toEqual([3, 2, 4])
+    describe('position mode', () => {
+      test('saves a value to position given by parameter 1', () => {
+        const opcode = [3, 2]
+        const input = 4
+        expect(saveToPosition(opcode, 0, input)).toEqual([3, 2, 4])
+      })
     })
   })
 
   describe('outputParameter', () => {
-    test('returns the value at parameter 1', () => {
-      const opcode = [4,2]
-      expect(outputParameter(opcode, 0)).toEqual(2)
+    describe('position mode', () => {
+      test('returns the value at position 2', () => {
+        const opcode = [4,2,1]
+        expect(outputParameter(opcode, 0)).toEqual(1)
+      })
+    })
+
+    describe('immediate mode', () => {
+      test('returns the value at parameter 1', () => {
+        const opcode = [4,1,2]
+        expect(outputParameter(opcode, 0)).toEqual(1)
+      })
     })
   })
 })

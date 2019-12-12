@@ -1,8 +1,9 @@
 const { runOpcode } = require('./computer')
 
-const main = () => {
-  const opcode = [1002, 4, 3, 4, 33]
-  console.log(runOpcode(opcode))
+const main = async () => {
+  const opcode = [4, 1, 99]
+  const result = await runOpcode(opcode)
+  console.log(result)
 }
 
 main()

@@ -51,5 +51,5 @@ exports.saveToPosition = (opcode, pointer, input) => {
 }
 
 exports.outputParameter = (opcode, pointer) => {
-  return opcode[pointer + 1]
+  return getParameter(opcode, pointer, 1)
 }
