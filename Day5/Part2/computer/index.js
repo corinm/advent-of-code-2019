@@ -13,10 +13,17 @@ exports.runOpcode = async (opcode, inputs = []) => {
   let isDone = false
   let inputIndex = 0
   const outputs = []
+  let loopCount = 0
 
-  // console.log('\nRunning...\n')
+  console.log('\nRunning...\n')
 
   while (!isDone) {
+    if (loopCount >= 5000) {
+      throw new Error('Infinite loop')
+    }
+
+    // console.log(`Iteration: ${loopCount}`)
+    loopCount++
     const instruction = opcode[pointer]
     const operation = getOperation(instruction)
 
@@ -56,17 +63,17 @@ exports.runOpcode = async (opcode, inputs = []) => {
 
       case 7:
         opcode = lessThan(opcode, pointer)
-        pointer += 2
+        pointer += 4
         break
 
       case 8:
         opcode = equals(opcode, pointer)
-        pointer += 2
+        pointer += 4
         break
 
       case 99:
         isDone = true
-        // console.log('\nFinished...\n')
+        console.log('\nFinished...\n')
         return {
           finalOpcode: opcode,
           outputs: [...outputs, 'EXIT']
