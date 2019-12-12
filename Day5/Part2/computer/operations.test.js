@@ -112,20 +112,20 @@ describe('jumpIfTrue', () => {
     })
 
     test('should return second parameter if value at first parameter is not zero', () => {
-      const opcode = [5, 3, 2, 1]
-      expect(jumpIfTrue(opcode, 0)).toEqual(2)
+      const opcode = [5, 3, 4, 1, 7]
+      expect(jumpIfTrue(opcode, 0)).toEqual(7)
     })
   })
 
   describe('immediate mode', () => {
     test('should return pointer if first parameter is zero', () => {
-      const opcode = [105, 0, 2]
+      const opcode = [1105, 0, 2]
       expect(jumpIfTrue(opcode, 0)).toEqual(0)
     })
 
     test('should return second parameter if first parameter is not zero', () => {
-      const opcode = [105, 1, 2]
-      expect(jumpIfTrue(opcode, 0)).toEqual(2)
+      const opcode = [1105, 1, 4, 6, 7]
+      expect(jumpIfTrue(opcode, 0)).toEqual(4)
     })
   })
 })
@@ -145,12 +145,12 @@ describe('jumpIfFalse', () => {
 
   describe('immediate mode', () => {
     test('should return pointer if first parameter is not zero', () => {
-      const opcode = [106, 1, 2]
+      const opcode = [1106, 1, 2]
       expect(jumpIfFalse(opcode, 0)).toEqual(0)
     })
 
     test('should return second parameter if first parameter is zero', () => {
-      const opcode = [106, 0, 2]
+      const opcode = [1106, 0, 2]
       expect(jumpIfFalse(opcode, 0)).toEqual(2)
     })
   })
