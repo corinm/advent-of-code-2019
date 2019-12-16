@@ -9,7 +9,7 @@ describe('initialiseMemory', () => {
   })
 })
 
-describe('runOpcode', () => {
+xdescribe('runOpcode', () => {
   describe('earlier tasks', () => {
     test('it runs the opcode as described in example', async () => {
       const opcode = [
@@ -136,21 +136,21 @@ describe('runOpcode', () => {
     describe('jump', () => {
       describe('position mode', () => {
         test('if input is 0 return 0', async () => {
-          const opcode = [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]
+          const opcode = [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9]
           const inputs = [0]
           const { outputs } = await runOpcode(opcode, inputs)
           expect(outputs).toEqual([0, 'EXIT'])
         })
 
         test('if input is 1 return 1', async () => {
-          const opcode = [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]
+          const opcode = [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9]
           const inputs = [1]
           const { outputs } = await runOpcode(opcode, inputs)
           expect(outputs).toEqual([1, 'EXIT'])
         })
 
         test('if input is 100 return 1', async () => {
-          const opcode = [3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9]
+          const opcode = [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9]
           const inputs = [100]
           const { outputs } = await runOpcode(opcode, inputs)
           expect(outputs).toEqual([1, 'EXIT'])
@@ -159,12 +159,11 @@ describe('runOpcode', () => {
 
       xdescribe('immediate mode', () => {
         test('?', async () => {
-          const opcode = [3,3,1105,-1,9,1101,0,0,12,4,12,99,1]
+          const opcode = [3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1]
           const inputs = [1]
           const { outputs } = await runOpcode(opcode, inputs)
           expect(outputs).toEqual([1, 'EXIT'])
         })
-        
       })
     })
   })
