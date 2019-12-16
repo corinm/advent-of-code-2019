@@ -2,6 +2,10 @@
 
 My solutions for [Advent of Code 2019](https://adventofcode.com/) 🎄.
 
+## Install ts-node
+
+        npm install -g ts-node
+
 ## Install dependencies
 
         yarn
@@ -9,11 +13,10 @@ My solutions for [Advent of Code 2019](https://adventofcode.com/) 🎄.
 ## Tests
 
         yarn test
+        yarn test:watch
 
-## Run a solution
+## Run the solutions
 
-        node ./Day1/Part1
+Not all the solutions use TypeScript, however ts-node is able to run all the solutions
 
-## Run solutions that use TypeScript
-
-        ./node_modules/.bin/ts-node ./Day6/Part1
+        ts-node ./Day6/Part1
