@@ -1,4 +1,4 @@
-import { createTree, getAllEdges } from "./helpers";
+import { createTree, countOrbits, getCommonAncestor } from "./helpers";
 import { Tree } from "./types";
 
 export default class OrbitTree {
@@ -10,8 +10,7 @@ export default class OrbitTree {
 
   getTree = (): Tree => this.tree;
 
-  getCountOfAllEdges = (): number => {
-    const allEdges = getAllEdges(this.tree);
-    return allEdges.size;
-  };
+  countOrbits = (): number => countOrbits(this.tree);
+
+  getStepsToSanta = () => getCommonAncestor(this.tree, "YOU", "SAN");
 }

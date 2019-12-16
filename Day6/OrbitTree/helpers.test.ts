@@ -1,11 +1,16 @@
+import { readFileSync } from "fs";
+
 import {
   setOrbiter,
   setOrbited,
   createTree,
-  getAllEdges,
-  getEdgesForPlanet
+  countOrbits,
+  countAncestors,
+  getAncestors,
+  getCommonAncestor
 } from "./helpers";
-import { fullTree } from "./data";
+import { fullTree, fullTreeWithSanta } from "./data";
+import OrbitTree from "../OrbitTree";
 
 describe("setOrbiter", () => {
   test("should set the orbiter if not already present", () => {
@@ -109,94 +114,54 @@ describe("createTree", () => {
   });
 });
 
-describe("getAllEdges", () => {
-  test("should return all edges for simple case", () => {
-    const tree = {
-      COM: {
-        children: ["B"]
-      },
-      B: {
-        parent: "COM",
-        children: ["C"]
-      },
-      C: {
-        parent: "B",
-        children: []
-      }
-    };
-    // COM - B - C
-    expect(getAllEdges(tree)).toEqual(new Set(["COM-B", "B-C", "COM-C"]));
+describe("countOrbits", () => {
+  test("should return 42 for fullTree", () => {
+    expect(countOrbits(fullTree)).toEqual(42);
   });
 
-  test("should return all edges for complex case", () => {
-    const edges = getAllEdges(fullTree);
-    expect(edges).toEqual(
-      new Set([
-        "COM-B",
-        "COM-C",
-        "COM-D",
-        "COM-E",
-        "COM-F",
-        "COM-G",
-        "COM-H",
-        "COM-I",
-        "COM-J",
-        "COM-K", // 10
-        "COM-L",
-        "B-C",
-        "B-D",
-        "B-E",
-        "B-F",
-        "B-G",
-        "B-H",
-        "B-I",
-        "B-J",
-        "B-K", // 20
-        "B-L",
-        "C-D",
-        "C-E",
-        "C-F",
-        "C-I",
-        "C-J",
-        "C-K",
-        "C-L",
-        "D-E",
-        "D-F", // 30
-        "D-I",
-        "D-J",
-        "D-K",
-        "D-L",
-        "E-F",
-        "E-J",
-        "E-K",
-        "E-L",
-        "G-H",
-        "J-K", // 40
-        "J-L",
-        "K-L" // 42
-      ])
-    );
-    expect(edges.size).toEqual(42);
+  test("returns 358244 for tree of part 1 data", () => {
+    const data = readFileSync(`${__dirname}/../orbits.txt`, "UTF-8");
+    const orbits = data.split("\n");
+    const ot = new OrbitTree(orbits);
+    const tree = ot.getTree();
+    expect(countOrbits(tree)).toEqual(358244);
   });
 });
 
-describe("getEdgesForPlanet", () => {
-  test("returns all edges for B planet", () => {
-    expect(getEdgesForPlanet(fullTree, "B")).toEqual(["COM-B"]);
+describe("countAncestors", () => {
+  test("returns 1 ancestor for planet B", () => {
+    expect(countAncestors(fullTree, "B")).toEqual(1);
   });
 
-  test("returns all edges for C planet", () => {
-    expect(getEdgesForPlanet(fullTree, "C")).toEqual(["B-C", "COM-C", "COM-B"]);
+  test("returns 2 ancestors for planet C", () => {
+    expect(countAncestors(fullTree, "C")).toEqual(2);
   });
 
-  test("returns all edges for D planet", () => {
-    expect(getEdgesForPlanet(fullTree, "D")).toEqual([
-      "C-D",
-      "B-D",
-      "B-C",
-      "COM-D",
-      "COM-C",
-      "COM-B"
-    ]);
+  test("returns 3 ancestors for planet D", () => {
+    expect(countAncestors(fullTree, "D")).toEqual(3);
+  });
+});
+
+describe("getAncestors", () => {
+  test("returns ancestors for planet B", () => {
+    expect(getAncestors(fullTree, "B")).toEqual(["COM"]);
+  });
+
+  test("returns ancestors for planet C", () => {
+    expect(getAncestors(fullTree, "C")).toEqual(["B", "COM"]);
+  });
+
+  test("returns ancestors for planet D", () => {
+    expect(getAncestors(fullTree, "D")).toEqual(["C", "B", "COM"]);
+  });
+});
+
+describe("getCommonAncestor", () => {
+  test("corrently answers example", () => {
+    expect(getCommonAncestor(fullTreeWithSanta, "YOU", "SAN")).toEqual({
+      commonAncestor: "D",
+      steps: ["J", "E", "D", "I"],
+      stepsCount: 4
+    });
   });
 });
