@@ -24,7 +24,7 @@ export const runOpcode = async (opcode, inputs = []) => {
   const outputs = [];
   let loopCount = 0;
 
-  console.log("\nRunning...\n");
+  // console.log("\nRunning...\n");
 
   while (!isDone) {
     if (loopCount >= 5000) {
@@ -82,7 +82,7 @@ export const runOpcode = async (opcode, inputs = []) => {
 
       case 99:
         isDone = true;
-        console.log("\nFinished...\n");
+        // console.log("\nFinished...\n");
         return {
           finalOpcode: opcode,
           outputs: [...outputs, "EXIT"]
