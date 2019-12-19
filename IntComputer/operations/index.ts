@@ -1,37 +1,4 @@
-import { getMode } from "./helpers";
-
-const positionMode = mode => mode === 0;
-const immediateMode = mode => mode === 1;
-
-const getParameter = (
-  opcode: number[],
-  pointer: number,
-  offset: number
-): number => {
-  const instruction = opcode[pointer];
-  const mode = getMode(instruction, offset);
-
-  if (positionMode(mode)) {
-    const address: number = opcode[pointer + offset];
-    return opcode[address];
-  } else if (immediateMode(mode)) {
-    return opcode[pointer + offset];
-  } else {
-    throw new Error(`Unknown mode: ${mode}`);
-  }
-};
-
-const getParameters = (opcode: number[], pointer: number) => ({
-  parameter1: getParameter(opcode, pointer, 1),
-  parameter2: getParameter(opcode, pointer, 2)
-});
-
-const setOutput = (opcode: number[], pointer: number, output): number[] => {
-  const newOpcode = [...opcode];
-  const outputAddress = opcode[pointer + 3];
-  newOpcode[outputAddress] = output;
-  return newOpcode;
-};
+import { getParameter, getParameters, setOutput } from "./helpers";
 
 export const add = (opcode: number[], pointer: number): number[] => {
   const { parameter1, parameter2 } = getParameters(opcode, pointer);

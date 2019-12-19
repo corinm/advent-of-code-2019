@@ -7,7 +7,7 @@ import {
   jumpIfFalse,
   lessThan,
   equals
-} from "./operations";
+} from ".";
 
 describe("add", () => {
   describe("position mode", () => {
