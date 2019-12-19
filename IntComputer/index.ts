@@ -10,14 +10,14 @@ import {
 } from "./operations";
 import { getOperation } from "./helpers";
 
-export const initialiseMemory = (opcode, noun, verb) => {
+export const initialiseMemory = (opcode: number[], noun, verb) => {
   const newOpcode = [...opcode];
   newOpcode[1] = noun;
   newOpcode[2] = verb;
   return newOpcode;
 };
 
-export const runOpcode = async (opcode, inputs = []) => {
+export const runOpcode = async (opcode: number[], inputs: number[] = []) => {
   let pointer = 0;
   let isDone = false;
   let inputIndex = 0;

@@ -1,4 +1,4 @@
-import { padZeroes } from "./helpers";
+import { padZeroes } from ".";
 
 describe("padZeroes", () => {
   test('given number 1011 returns "01011"', () => {
