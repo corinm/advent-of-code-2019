@@ -1,4 +1,4 @@
-import { runOpcode } from "./computer";
+import { runOpcode } from "../../IntComputer";
 import diagnosticProgram from "./diagnosticProgram";
 
 const main = async () => {
