@@ -27,7 +27,7 @@ export const runOpcode = async (opcode, inputs = []) => {
   // console.log("\nRunning...\n");
 
   while (!isDone) {
-    if (loopCount >= 50) {
+    if (loopCount >= 5000) {
       throw new Error("Infinite loop");
     }
 
