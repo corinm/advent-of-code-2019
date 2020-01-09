@@ -1,4 +1,4 @@
-import { Asteroid, CustomCoordinates } from "./types";
+import { Asteroid, DestroyableAsteroid, CustomCoordinates } from "./types";
 
 export const parseMap = (rawMap: string): number[][] =>
   rawMap
@@ -29,19 +29,22 @@ const calculateAngleDegrees = ({ x, y }: CustomCoordinates): number => {
   return (Math.atan2(y, x) * 180) / Math.PI;
 };
 
-const rebase = (asteroid: Asteroid, base: Asteroid): Asteroid => ({
+const rebase = (
+  asteroid: DestroyableAsteroid,
+  base: Asteroid
+): DestroyableAsteroid => ({
   x: asteroid.x - base.x,
   y: asteroid.y - base.y,
   origX: asteroid.x,
   origY: asteroid.y
 });
 
-const populateAngle = (asteroid: Asteroid): Asteroid => ({
+const populateAngle = (asteroid: Asteroid): DestroyableAsteroid => ({
   ...asteroid,
   angle: calculateAngleDegrees(asteroid)
 });
 
-const populateDistance = (asteroid: Asteroid): Asteroid => ({
+const populateDistance = (asteroid: Asteroid): DestroyableAsteroid => ({
   ...asteroid,
   distance: Math.abs(asteroid.x) + Math.abs(asteroid.y)
 });
@@ -87,7 +90,10 @@ export const findBestBase = (asteroids: Asteroid[]): CustomCoordinates => {
 /*
  * -90 -> 180, -180 -> -90
  */
-export const sortByAngle = (a: Asteroid, b: Asteroid): number => {
+export const sortByAngle = (
+  a: DestroyableAsteroid,
+  b: DestroyableAsteroid
+): number => {
   const aAngle = a.angle < -90 ? a.angle + 360 : a.angle;
   const bAngle = b.angle < -90 ? b.angle + 360 : b.angle;
 
@@ -100,7 +106,10 @@ export const sortByAngle = (a: Asteroid, b: Asteroid): number => {
   }
 };
 
-const sortByDistance = (a: Asteroid, b: Asteroid): number => {
+const sortByDistance = (
+  a: DestroyableAsteroid,
+  b: DestroyableAsteroid
+): number => {
   if (a.distance > b.distance) {
     return +1;
   } else if (a.distance < b.distance) {
@@ -131,7 +140,7 @@ export const prepareForLaser = (
 };
 
 export const laserSingleRotation = (
-  asteroids: Asteroid[],
+  asteroids: DestroyableAsteroid[],
   dict,
   destroyedCount = 0
 ) => {
@@ -162,7 +171,7 @@ export const laserSingleRotation = (
   };
 };
 
-export const createAsteroidsDict = (asteroids: Asteroid[]): object =>
+export const createAsteroidsDict = (asteroids: DestroyableAsteroid[]): object =>
   asteroids.reduce((acc, cur) => {
     if (!acc[cur.angle]) {
       return {
