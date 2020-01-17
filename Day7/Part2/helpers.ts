@@ -1,4 +1,4 @@
-import { runOpcode } from "../computer";
+import { runOpcode } from "../../IntComputer";
 
 export const runWithFeedbackLoop = async (
   opcode: number[],
